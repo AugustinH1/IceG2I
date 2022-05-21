@@ -1,0 +1,34 @@
+.rechercher{
+    margin: 10px;
+    display: inline;
+    width: auto;
+
+}
+
+.produit{
+    border: solid black 1px;
+    margin: 20px;
+    padding: 30px;
+    position: relative;
+    height: auto ;
+}
+
+.image{
+    margin-left: 10px;
+    margin-right: 50px;
+    float: left;
+}
+
+.ajoutpanier{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.nom{
+    display: inline-block;
+}
+
+h4{
+    float: right;
+}
