@@ -50,7 +50,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		{
 			echo "<a class=\"deconnecter \" href=\"controleur.php?view=magasin&action=Logout\">Se Déconnecter</a>";
 		}
-		tprint($_SESSION);
+		//tprint($_SESSION);
 		?>
 		
 	</p>

@@ -189,12 +189,18 @@ session_start();
 					$tabQs["view"]="panier";
 				}
 			break;
+
+			case 'Commander':
+				$tabQs["view"]="tunnel";
+			break;
+
+			case 'valider':
+				ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$_SESSION["idUser"]);
+			break;
 		}
 
 	}
 
-
-	
 
 	// On redirige toujours vers la page index, mais on ne connait pas le répertoire de base
 	// On l'extrait donc du chemin du script courant : $_SERVER["PHP_SELF"]

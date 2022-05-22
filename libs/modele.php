@@ -223,4 +223,12 @@ function ListerPanier($idUser)
 	return parcoursRs(SQLSelect($sql));
 }
 
+function ValiderCommande($nom,$prenom,$adresse,$ville,$code_postal,$tel,$cb,$exp,$cvv,$idUser)
+{
+	$date=date('Y-m-d');
+	$sql = "INSERT INTO Commande(date,etat_livraison,nom,prenom,adresse,ville,code_postal,telephone,CB,date_expiration,CVV,id_user)
+	        VALUES ('$date', 0,'$nom','$prenom','$adresse','$ville','$code_postal','$tel','$cb','$exp','$cvv','$idUser');";
+	SQLInsert($sql);
+}
+
 ?>

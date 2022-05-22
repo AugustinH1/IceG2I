@@ -23,7 +23,9 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
     }
 </style>
 
-<h1 class="titre">magasin</h1>
+<div class="page-header">
+	<h1 class="titre">magasin</h1>
+</div>
 
 
 <?php

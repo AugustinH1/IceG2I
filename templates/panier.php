@@ -16,11 +16,6 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 // Cette interface ne doit pas etre offerte aux utilisateurs non connectés
 
 if (!valider("connecte","SESSION")) {
-	// header("Location:?view=login&msg=" . urlencode("Il faut vous connecter !!")); 
-	// déclenche une erreur headers already sent 
-	// car les entetes HTTP de réponse ont déjà envoyées
-	// car la page header envoie un résultat HTML au client 
-	// ET que le serveur ne bufferise pas 
 	
 	// On choisit de charger la vue de login 
 	$_REQUEST["msg"] = "Il faut vous connecter !!"; 
@@ -55,12 +50,15 @@ if (!valider("connecte","SESSION")) {
     }
 </style>
 
-<img src="ressources/panier.png" height="40" width="40" alt="imgpanier">
-<h1 class="titre">Panier</h1>
+<div class="page-header">
+    <img src="ressources/panier.png" height="40" width="40" alt="imgpanier">
+    <h1 class="titre">Panier</h1>
+</div>
+
 <div class="panier">
 
     <?php
-        $id_User=valider("connecte","SESSION");
+        $id_User=valider("idUser","SESSION");
         $produits=ListerPanier($id_User);
         $total=0;
         foreach($produits as $produit)
@@ -86,7 +84,7 @@ if (!valider("connecte","SESSION")) {
             endForm();
 
             echo "</div>";
-            $total=$total+$prix;
+            $total=$total+($prix*$quantite);
         }
     ?>
 
