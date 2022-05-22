@@ -32,6 +32,12 @@ function verifUser($login,$password)
 	$_SESSION["idUser"] = $id;
 	$_SESSION["connecte"] = true;
 	$_SESSION["entreprise"] = entreprise($id);
+	if(entreprise($id))
+		$_SESSION["id_entreprise"] = identreprise($id);
+
+
+
+	$_SESSION["email"] = email($id);
 	$_SESSION["heureConnexion"] = date("H:i:s");
 	
 

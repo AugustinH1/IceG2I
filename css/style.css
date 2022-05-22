@@ -5,3 +5,49 @@
 
 }
 
+.settingcontent
+{
+    float: left;
+    margin: 15px;
+    
+}
+
+.stteingdelete
+{
+
+    display: inline-block;
+    color: red;
+    margin-top: 30px;
+
+}
+
+.HRV{
+    width: 3px;
+    background-color: black;
+    height: 200px;
+    margin: 15px;
+
+}
+
+
+.addproduitcontent
+{
+    float: left;
+    margin: 30px;
+
+    
+}
+
+#information
+{
+    text-align: right;
+}
+
+
+.addproduit
+{
+
+    display: inline-block;
+    margin-top: 30px;
+
+}

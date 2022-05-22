@@ -8,27 +8,6 @@ Dans ce fichier, on définit diverses fonctions permettant de récupérer des do
 
 
 
-function listerUtilisateurs($classe = "both")
-{
-	// Cette fonction liste les utilisateurs de la base de données 
-	// et renvoie un tableau d'enregistrements. 
-	// Chaque enregistrement est un tableau associatif contenant les champs 
-	// id,pseudo,blacklist,connecte,couleur
-
-	// Lorsque la variable $classe vaut "both", elle renvoie tous les utilisateurs
-	// Lorsqu'elle vaut "bl", elle ne renvoie que les utilisateurs blacklistés
-	// Lorsqu'elle vaut "nbl", elle ne renvoie que les utilisateurs non blacklistés
-  $sql = "SELECT *
-          FROM users";
-  if ($classe == "bl") {
-    $sql = $sql . " WHERE blacklist";
-  }
-  if ($classe == "nbl") {
-    $sql = $sql . " WHERE NOT blacklist";
-  }
-  return parcoursRs(SQLSelect($sql));
-}
-
 
 
 
@@ -86,6 +65,38 @@ function deconnecterUtilisateur($idUser)
 }
 
 
+function changerPseudo($idUser, $username)
+{
+	$sql = "UPDATE User
+          SET username = '$username'
+          WHERE id_user  = '$idUser'";
+  SQLUpdate($sql);
+}
+
+function changerEmail($idUser, $email)
+{
+	$sql = "UPDATE User
+          SET email = '$email'
+          WHERE id_user  = '$idUser'";
+  SQLUpdate($sql);
+}
+
+function changerPasse($idUser, $passe)
+{
+	$sql = "UPDATE User
+          SET passe = '$passe'
+          WHERE id_user  = '$idUser'";
+  SQLUpdate($sql);
+}
+
+function deletecompte($idUser)
+{
+	$sql="DELETE FROM User
+	WHERE id_user = '$idUser'";
+	SQLDelete($sql);
+}
+
+
 
 
 
@@ -99,36 +110,61 @@ function entreprise($idUser)
 	return SQLGetChamp($sql);
 
 }
-
-
-
-
-
-
-
-
-function changerPasse($idUser,$passe)
+//renvoie si le mail
+function email($idUser)
 {
-	// cette fonction modifie le mot de passe d'un utilisateur
-	$sql = "UPDATE users
-	        SET passe = '$passe'
-	        WHERE id = '$idUser';";
-  SQLUpdate($sql);
-}
+	$sql="SELECT email
+			FROM User
+			WHERE id_user='$idUser'";
 
-function changerPseudo($idUser,$pseudo)
-{
-	// cette fonction modifie le pseudo d'un utilisateur
-	$sql = "UPDATE users
-	        SET pseudo = '$pseudo'
-	        WHERE id = '$idUser';";
-  SQLUpdate($sql);
+	return SQLGetChamp($sql);
+
 }
 
 
 
+//mettre un compte en entreprise, met les info de l'entreprise et met a jour le statu de l'utilisateur en entreprise
+function setentreprise($nom ,$siege ,$tel ,$siret ,$idUser)
+{
+	//met a jour le status utilisateur
+	$sql="UPDATE User
+			SET Entreprise = 1
+			where id_user = '$idUser'";
+	SQLUpdate($sql);
+
+	//ajoute les information de l'entreprise
+	$sql = "INSERT INTO Entreprise(nom_entreprise, siege_social, tel_entreprise, siret, id_user)
+	        VALUES ('$nom', '$siege', '$tel', '$siret', '$idUser');";
+  
+  	SQLInsert($sql);
+	
 
 
+}
+
+
+
+
+function AjouterProduit($nom,$description,$URL_photo,$prix,$niveau,$type,$pointure,$marque,$lame,$poid,$identreprise)
+{
+	$sql = "INSERT INTO Produit(nom, description, url_photo, prix, niveau, type, pointure, marque, lames,poids,id_entreprise)
+	        VALUES ('$nom', '$description', '$URL_photo', '$prix', '$niveau', '$type','$pointure', '$marque', '$lame','$poid','$identreprise');";
+  
+  	SQLInsert($sql);
+
+
+}
+
+//on donne l'id du compte, la fonction nous ressort l'id entreprise associé
+function identreprise($id)
+{
+	$sql="SELECT id_entreprise
+			FROM Entreprise
+			WHERE id_user = $id ;";
+
+	return SQLGetChamp($sql);
+
+}
 
 
 ?>

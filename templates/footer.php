@@ -48,7 +48,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		// Si l'utilisateur est connecte, on affiche un lien de deconnexion 
 		if (valider("connecte","SESSION"))
 		{
-			echo "<a class=\"deconnecter \" href=\"controleur.php?action=Logout\">Se Déconnecter</a>";
+			echo "<a class=\"deconnecter \" href=\"controleur.php?view=magasin&action=Logout\">Se Déconnecter</a>";
 		}
 		tprint($_SESSION);
 		?>

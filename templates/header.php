@@ -21,7 +21,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 <!-- **** H E A D **** -->
 <head>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>TinyMVC ...</title>
+	<title>IceG2I</title>
 	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
 
 	<!-- Liaisons aux fichiers css de Bootstrap -->
@@ -70,6 +70,10 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 		
 		<!-- Afichage des paramètre si conectée -->
 		<?php
+
+		if(valider("connecte","SESSION"))
+			if($_SESSION["entreprise"]==1)
+				echo mkHeadLink("Ajouter produit","newitem",$view);
 		
 		if (valider("connecte", "SESSION")) {
 			echo mkHeadLink("Paramètres","settings",$view);
@@ -100,6 +104,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 		//l'utilisateur n'as pas accés a son panier s'il n'est pas connecté
 		if (valider("connecte","SESSION"))
 			echo mkHeadLink("<img src=\"ressources/panier.png\" height=\"20\" alt=\"imgpanier\">","panier",$view);
+
+		
 		
 		?>
 

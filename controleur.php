@@ -90,11 +90,51 @@ session_start();
 
 			break;
 
-			
+			case 'conmpteentreprise' :
+
+				setentreprise($_GET["nom"] ,$_GET["siege"] ,$_GET["tel"] ,$_GET["siret"] ,$_SESSION["idUser"]);
+				$_SESSION["entreprise"] = 1;
+				$_SESSION["id_entreprise"] = identreprise($id);
+				$tabQs["view"]="magasin";
+
+			break;
+
+			case 'Changer pseudo':
+
+				changerPseudo($_SESSION["idUser"], $_GET["pseudo"]);
+				$_SESSION["pseudo"] = $_GET["pseudo"];
+
+			break;
+
+			case 'Changer email':
+
+				changerEmail($_SESSION["idUser"], $_GET["email"]);
+				$_SESSION["email"] = $_GET["email"];
+
+			break;
+
+			case 'Changer mot de passe':
+
+				changerPasse($_SESSION["idUser"], $_GET["passe"]);
+
+			break;
+
+			case 'Suprimer compte':
+
+				deletecompte($_SESSION["idUser"]);
+				$_SESSION = array();
+				$tabQs["view"]="magasin";
+
+
+			break;
 
 			
-      
-			
+			case 'Ajouter Produit':
+
+				AjouterProduit($_GET["nom"],$_GET["description"],$_GET["photo"],$_GET["prix"],$_GET["niveau"],$_GET["type"],$_GET["pointure"],$_GET["marque"],$_GET["lame"],$_GET["poids"],$_SESSION["id_entreprise"]);
+
+			break;
+
 
 		}
 
