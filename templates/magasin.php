@@ -1,17 +1,12 @@
 <?php
 
+//Template du magasin : vue des différents produits proposés
+
 include_once "libs/modele.php"; 
 include_once "libs/maLibForms.php"; 
 include_once "libs/maLibUtils.php";
 
-//C'est la propriété php_self qui nous l'indique : 
-// Quand on vient de index : 
-// [PHP_SELF] => /chatISIG/index.php 
-// Quand on vient directement par le répertoire templates
-// [PHP_SELF] => /chatISIG/templates/accueil.php
-
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index
-// Pas de soucis de bufferisation, puisque c'est dans le cas où on appelle directement la page sans son contexte
 if (basename($_SERVER["PHP_SELF"]) != "index.php")
 {
 	header("Location:../index.php?view=accueil");
@@ -20,9 +15,15 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 
 ?>
 
-<body>
+<style>
+	.ajoutpanier{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+    }
+</style>
 
-<h1>magasin</h1>
+<h1 class="titre">magasin</h1>
 
 
 <?php
@@ -39,8 +40,8 @@ foreach($produits as $produit)
 
 	echo "<div class='produit'>
 		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\"> <img class=\"image\" src=\"$photo\" alt=\"imageproduit\" height=\"100\" weight=\"100\"/> </a>
-		 <a class=\"nom\" href=\"index.php?view=detail_produit&id_produit=$id_produit\"> <h3> $nom </h3> </a>
-		 <h4> $prix € </h4>
+		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\" style='display:inline-block'> <h3> $nom </h3> </a>
+		 <h4 style='float:right'> $prix € </h4>
 		 <p> $description </p>";
 
 	if (valider("connecte","SESSION"))
@@ -54,7 +55,5 @@ foreach($produits as $produit)
 }
 
 ?>
-
-</body>
 
 

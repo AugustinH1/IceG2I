@@ -21,7 +21,7 @@ include_once("libs/maLibForms.php");
 
 
 <div class="page-header">
-	<h1>Ajouter un produit</h1>
+	<h1 class="titre">Ajouter un produit</h1>
 </div>
 
 

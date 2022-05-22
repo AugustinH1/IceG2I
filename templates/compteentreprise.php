@@ -50,9 +50,7 @@ include_once("libs/maLibForms.php");
   </div>
 
 
-  <button type="submit" name="action" value="conmpteentreprise" class="form-control btn btn-default">Valider compte entreprise</button>
+  <button type="submit" name="action" value="compteentreprise" class="form-control btn btn-default">Valider compte entreprise</button>
 
 </form>
 </p>
-
-<?php

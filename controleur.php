@@ -90,11 +90,11 @@ session_start();
 
 			break;
 
-			case 'conmpteentreprise' :
+			case 'compteentreprise' :
 
 				setentreprise($_GET["nom"] ,$_GET["siege"] ,$_GET["tel"] ,$_GET["siret"] ,$_SESSION["idUser"]);
 				$_SESSION["entreprise"] = 1;
-				$_SESSION["id_entreprise"] = identreprise($id);
+				$_SESSION["id_entreprise"] = identreprise($_SESSION["idUser"]);
 				$tabQs["view"]="magasin";
 
 			break;
@@ -156,8 +156,39 @@ session_start();
 					
 				}
 			break;
+			case 'Retirer du panier':
+				if($id_produit=valider("id_produit","GET"))
+				{
+					$id_user=valider("idUser","SESSION");
+					RetireDuPanier($id_produit, $id_user);
+					$tabQs["view"]="panier";
+				}
+				else
+				{
+					$tabQs["view"]="magasin";
+					$tabQs["msg"]="aucun produit sélectionné";
+				}
+			break;
 
+			case '+':
+				if($id_produit=valider("id_produit","GET"))
+				{
+					$id_user=valider("idUser","SESSION");
+					IncrementeQuantite($id_user,$id_produit);
+					$tabQs["view"]="panier";
+				}
+			 	
+			break;
 
+			case '-':
+				if($_GET["quantite"]>1)
+				{
+					$id_produit=valider("id_produit","GET");
+					$id_user=valider("idUser","SESSION");
+					DecrementeQuantite($id_user,$id_produit);
+					$tabQs["view"]="panier";
+				}
+			break;
 		}
 
 	}

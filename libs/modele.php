@@ -167,9 +167,7 @@ function identreprise($id)
 }
 
 
-
-
-// Cette fonction liste l'ensemble des informations d'un produit qui seront affichées dans le template magasin
+// Cette fonction liste tous les produits du magasin
 function ListerProduit()
 {
 	$sql = "SELECT id_produit, nom, description, url_photo, prix FROM Produit;";
@@ -186,6 +184,7 @@ function DejaDansPanier($idUser,$id_produit)
 	return SQLGetChamp($sql);
 }
 
+//Incrémente la quantité d'un produit dans le panier
 function IncrementeQuantite($idUser,$id_produit)
 {
 	$sql = "UPDATE Panier
@@ -194,6 +193,15 @@ function IncrementeQuantite($idUser,$id_produit)
     SQLUpdate($sql);
 }
 
+function DecrementeQuantite($idUser,$id_produit)
+{
+	$sql = "UPDATE Panier
+          SET quantite = quantite-1
+          WHERE id_user  = '$idUser' AND id_produit='$id_produit'";
+    SQLUpdate($sql);
+}
+
+//Ajoute un produit dans le panier de l'utilisateur
 function AjouteAuPanier($idUser,$id_produit)
 {
 	$sql = "INSERT INTO Panier
@@ -201,5 +209,18 @@ function AjouteAuPanier($idUser,$id_produit)
   	SQLInsert($sql);
 }
 
+function RetireDuPanier($id_produit, $id_user)
+{
+	$sql="DELETE FROM Panier WHERE id_user = '$id_user' AND id_produit='$id_produit'";
+	SQLDelete($sql);
+}
+
+//Liste les produits du panier de l'utilisateur
+function ListerPanier($idUser)
+{
+	$sql = "SELECT Produit.id_produit, Produit.nom, Produit.url_photo, Produit.prix, Panier.quantite 
+	FROM Produit JOIN Panier ON Panier.id_produit=Produit.id_produit WHERE Panier.id_user='$idUser';";
+	return parcoursRs(SQLSelect($sql));
+}
 
 ?>

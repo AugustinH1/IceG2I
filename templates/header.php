@@ -21,7 +21,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 <!-- **** H E A D **** -->
 <head>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>IceG2I</title>
+	<title>TinyMVC ...</title>
 	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
 
 	<!-- Liaisons aux fichiers css de Bootstrap -->
@@ -65,19 +65,19 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
         <ul class="nav navbar-nav">
          	<!--<li class="active"><a href="index.php?view=accueil">Accueil</a></li> -->
 		<?=mkHeadLink("Magasin","magasin",$view)?>
-		<?=mkHeadLink("Commandes","commande",$view)?>
-
 		
-		<!-- Afichage des paramètre si conectée -->
+		<!-- Afichage des paramètre si connecté -->
 		<?php
 
-		if(valider("connecte","SESSION"))
-			if($_SESSION["entreprise"]==1)
-				echo mkHeadLink("Ajouter produit","newitem",$view);
-		
-		if (valider("connecte", "SESSION")) {
+		if (valider("connecte", "SESSION")){
+			if (valider("entreprise", "SESSION")) {
+				echo mkHeadLink("Liste","liste_produit",$view);
+				echo mkHeadLink("Ajout","newitem",$view);
+			}
+			echo mkHeadLink("Commandes","commande",$view);
 			echo mkHeadLink("Paramètres","settings",$view);
 		}
+		
 		?>
 
 		<!-- affichage de la barre de recherche -->
@@ -104,8 +104,6 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 		//l'utilisateur n'as pas accés a son panier s'il n'est pas connecté
 		if (valider("connecte","SESSION"))
 			echo mkHeadLink("<img src=\"ressources/panier.png\" height=\"20\" alt=\"imgpanier\">","panier",$view);
-
-		
 		
 		?>
 
@@ -132,7 +130,6 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 	}
 
 	?>
-
 
 
 

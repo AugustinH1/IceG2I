@@ -21,7 +21,7 @@ include_once("libs/maLibForms.php");
 
 
 <div class="page-header">
-	<h1>Paramètre</h1>
+	<h1 class="titre">Paramètres</h1>
 </div>
 
 
@@ -44,7 +44,7 @@ include_once("libs/maLibForms.php");
 
 
     <div class="settingcontent">
-        <h2>Canger informations</h2>
+        <h2>Changer informations</h2>
 
         <?php
 
