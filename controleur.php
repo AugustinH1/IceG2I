@@ -135,6 +135,28 @@ session_start();
 
 			break;
 
+			case 'Ajouter au panier':
+				$idUser=$_SESSION["idUser"];
+				if($id_produit=valider("id_produit","GET"))
+				{
+					if(DejaDansPanier($idUser,$id_produit))
+					{
+						IncrementeQuantite($idUser,$id_produit);
+					}
+					else
+					{
+						AjouteAuPanier($idUser,$id_produit);
+					}
+					$tabQs["view"]="panier";
+				}
+				else
+				{
+					$tabQs["view"]="magasin";
+					$tabQs["msg"]="aucun produit sélectionné";
+					
+				}
+			break;
+
 
 		}
 

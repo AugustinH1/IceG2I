@@ -167,4 +167,39 @@ function identreprise($id)
 }
 
 
+
+
+// Cette fonction liste l'ensemble des informations d'un produit qui seront affichées dans le template magasin
+function ListerProduit()
+{
+	$sql = "SELECT id_produit, nom, description, url_photo, prix FROM Produit;";
+	return parcoursRs(SQLSelect($sql));
+}
+
+///fonctions relatives au panier d'un utilisateur
+function DejaDansPanier($idUser,$id_produit)
+{
+	$sql="SELECT id_produit
+			FROM Panier
+			WHERE id_user='$idUser' AND id_produit='$id_produit'";
+
+	return SQLGetChamp($sql);
+}
+
+function IncrementeQuantite($idUser,$id_produit)
+{
+	$sql = "UPDATE Panier
+          SET quantite = quantite+1
+          WHERE id_user  = '$idUser' AND id_produit='$id_produit'";
+    SQLUpdate($sql);
+}
+
+function AjouteAuPanier($idUser,$id_produit)
+{
+	$sql = "INSERT INTO Panier
+	        VALUES ('$idUser', '$id_produit', 1);";
+  	SQLInsert($sql);
+}
+
+
 ?>
