@@ -77,7 +77,7 @@ session_start();
 			
 				if($_GET["passe"]==$_GET["confirmpwd"])
 				{
-					$tabQs["view"]="magasin";
+					$tabQs["view"]="login";
 					mkUser($_GET["email"], $_GET["username"], $_GET["passe"], $connecte=0, $entreprise=0);
 				}
 				else
@@ -197,6 +197,39 @@ session_start();
 			case 'valider':
 				ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$_SESSION["idUser"]);
 			break;
+
+			case 'Noter':
+				
+				if($_GET["note"]>=1 && $_GET["note"]<=5)
+					addnote($_SESSION["idUser"],$_GET["id_produit"],$_GET["note"]);
+
+				$tabQs["view"]= "detail_produit";
+				$tabQs["id_produit"]= $_GET["id_produit"];
+
+
+			break;
+
+			case 'Envoyer':
+				if(!$_GET["commentaire"]=="")
+					addCommentaire($_SESSION["idUser"],$_GET["id_produit"],$_GET["commentaire"]);
+				$tabQs["view"]= "detail_produit";
+				$tabQs["id_produit"]= $_GET["id_produit"];
+			break;
+
+			case 'valider':
+				$idUser=valider("idUser","SESSION");
+				$id_commande=ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$idUser);
+        		$produits=ListerPanier($idUser);
+        		foreach($produits as $produit)
+				{
+					$id_produit=$produit["id_produit"];
+					$quantite=$produit["quantite"];
+					AjouteDetailCommande($id_commande, $id_produit, $quantite, $idUser);
+				}
+				$tabQs["view"]="magasin";
+			break;
+
+			
 		}
 
 	}

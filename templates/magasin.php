@@ -6,12 +6,6 @@ include_once "libs/modele.php";
 include_once "libs/maLibForms.php"; 
 include_once "libs/maLibUtils.php";
 
-// Si la page est appelée directement par son adresse, on redirige en passant pas la page index
-if (basename($_SERVER["PHP_SELF"]) != "index.php")
-{
-	header("Location:../index.php?view=accueil");
-	die("");
-}
 
 ?>
 
@@ -50,7 +44,7 @@ foreach($produits as $produit)
 	{
 		mkForm("controleur.php");
 		mkInput("hidden","id_produit",$id_produit);
-		mkInput("submit","action","Ajouter au panier", array(), "class=\"ajoutpanier\"");
+		mkInput("submit","action","Ajouter au panier", array(), "class=\"ajoutpanier btn btn-default\"");
 		endForm();
 	}
 	echo "</div>";

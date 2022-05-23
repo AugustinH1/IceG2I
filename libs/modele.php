@@ -39,6 +39,7 @@ function mkUser($email, $username, $passe, $connecte=0, $entreprise=0)
 	        VALUES ('$email', '$username', '$passe', '$connecte', '$entreprise');";
   
   SQLInsert($sql);
+
   return SQLGetChamp("SELECT MAX(id_user)
                       FROM User
                       WHERE username = '$username' AND passe = '$passe';");
@@ -110,7 +111,7 @@ function entreprise($idUser)
 	return SQLGetChamp($sql);
 
 }
-//renvoie si le mail
+//renvoie le mail d'un user
 function email($idUser)
 {
 	$sql="SELECT email
@@ -223,12 +224,90 @@ function ListerPanier($idUser)
 	return parcoursRs(SQLSelect($sql));
 }
 
+
+//on donne l'id du produit et la fonction nous renvoie les informations sous forme de tableau
+function getProduit($id)
+{
+	$sql="SELECT *
+			FROM Produit
+			WHERE id_produit = $id;";
+
+	
+	return parcoursRs(SQLSelect($sql));
+
+}
+
+
+//retourne la mote moyenne d'un produit
+function notemoy($id_produit)
+{
+	$sql="SELECT AVG(note)
+			FROM Avis
+			WHERE id_produit = $id_produit;";
+
+	return SQLGetChamp($sql);
+}
+
+function addnote($id_user,$id_produit,$note)
+{
+
+	$sql="DELETE FROM Avis WHERE id_user = '$id_user' AND id_produit='$id_produit'";
+	SQLDelete($sql);
+
+	$sql = "INSERT INTO Avis(id_user, id_produit,avis, note)
+	        VALUES ('$id_user', '$id_produit', NULL ,'$note');";
+	SQLInsert($sql);
+
+}
+
+function addCommentaire($id_user,$id_produit,$commentaire)
+{
+
+	$sql = "INSERT INTO Avis(id_user, id_produit,avis, note)
+	        VALUES ('$id_user', '$id_produit', '$commentaire' ,NULL);";
+	SQLInsert($sql);
+}
+
+
+function listercommentaire($id_produit)
+{
+	$sql="SELECT User.username, avis
+			FROM Avis join User
+				ON Avis.id_user=User.id_user
+			Where id_produit = '$id_produit';";
+
+	return parcoursRs(SQLSelect($sql));
+	
+}
+
+
+
 function ValiderCommande($nom,$prenom,$adresse,$ville,$code_postal,$tel,$cb,$exp,$cvv,$idUser)
 {
 	$date=date('Y-m-d');
 	$sql = "INSERT INTO Commande(date,etat_livraison,nom,prenom,adresse,ville,code_postal,telephone,CB,date_expiration,CVV,id_user)
 	        VALUES ('$date', 0,'$nom','$prenom','$adresse','$ville','$code_postal','$tel','$cb','$exp','$cvv','$idUser');";
 	SQLInsert($sql);
+
+	return SQLGetChamp("SELECT MAX(id_commande) FROM Commande WHERE id_user='$idUser'");
 }
+
+function AjouteDetailCommande($id_commande, $id_produit, $quantite, $id_user)
+{
+	$sql = "INSERT INTO Detail_commande VALUES ('$id_commande', '$id_produit', $quantite);";
+  	SQLInsert($sql);
+	$sql = "DELETE FROM Panier WHERE id_user = '$id_user' AND id_produit = '$id_produit'";
+	SQLDelete($sql);
+}
+
+function ListeCommande($id_user)
+{
+	$sql = "SELECT id_commande, date, etat_livraison FROM Commande WHERE id_user='$id_user';";
+	return parcoursRs(SQLSelect($sql));
+}
+
+
+
+
 
 ?>

@@ -24,32 +24,6 @@ if (!valider("connecte","SESSION")) {
 
 ?>
 
-<style>
-	.retirerpanier{
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-    }
-	
-    .panier{
-        border: solid black 1px;
-        padding: 10px;
-        margin: 10px;
-    }
-
-    .commander{
-        float:right;
-        margin-top: 5px;
-        margin-right: 15px;
-    }
-
-    .prixtotal{
-        float:right;
-        border:solid black 1px;
-        margin : 10px;
-    }
-</style>
-
 <div class="page-header">
     <img src="ressources/panier.png" height="40" width="40" alt="imgpanier">
     <h1 class="titre">Panier</h1>
@@ -77,10 +51,10 @@ if (!valider("connecte","SESSION")) {
             mkForm("controleur.php");
             mkInput("hidden","id_produit",$id_produit);
             mkInput("hidden","quantite",$quantite);
-            echo "<p style='display:inline-block'> Quantité : $quantite</p>";
-            mkInput("submit","action","+");
-            mkInput("submit","action","-");
-            mkInput("submit","action","Retirer du panier", array(), "class=\"retirerpanier\"");
+            echo "<p style='display:inline-block'> Quantité : $quantite &nbsp</p>";
+            mkInput("submit","action","+","","class=\"btn btn-default\"");
+            mkInput("submit","action","-","","class=\"btn btn-default\"");
+            mkInput("submit","action","Retirer du panier", array(), "class=\"retirerpanier btn btn-default\"");
             endForm();
 
             echo "</div>";
@@ -90,11 +64,18 @@ if (!valider("connecte","SESSION")) {
 
 </div>
 
+
 <?php
-    
-    mkForm("controleur.php");
-    mkInput("submit","action","Commander", array(), "class=\"commander\"");
-    endForm();
-    echo "<h4 class=\"prixtotal\"> Total : $total € </h4>";
+////panier
+    if($produits!=array())
+    {
+        mkForm("controleur.php");
+        mkInput("submit","action","Commander", array(), "class=\"commander btn btn-default\"");
+        endForm();
+        echo "<h4 class=\"prixtotal\"> Total : $total € </h4>";
+    }
+    else
+        echo "Votre panier est vide !";
+
 }
 ?>

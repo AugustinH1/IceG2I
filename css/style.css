@@ -71,3 +71,115 @@
     color: rgb(77, 168, 195);
     margin : 10px;
 }
+
+
+.detailproduit
+{
+   
+    height: 250px;
+}
+
+.descriptionproduit
+{
+    margin-left: 250px;
+    margin-right: 200px;
+
+
+}
+
+.produitprix
+{
+    margin: 30px;
+    float: right;
+    border: solid 1px;
+    color: blue;
+    
+}
+
+.avis
+{
+    border: solid 1px;
+
+}
+
+.contentavis
+{
+    border: solid 1px;
+    margin: 20px;
+    padding: 30px;
+    
+}
+
+.colorblue
+{
+    color: rgb(77, 168, 195);
+}
+
+.colorpurplue
+{
+    color: purple;
+}
+
+.placeavis
+{
+    float: left;
+    height: 100%;
+    width: 100%;
+}
+
+
+.placenote
+{
+    
+    float: left;
+    margin-left: 40px;
+    
+
+}
+.placeavis
+{
+    float: left;
+    margin-top: 20px;
+    width: 70%;
+}
+
+.para{
+    display: inline-block;
+    margin-right:30px;
+}
+
+.boutonplus{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.retirerpanier{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.panier{
+    border: solid black 1px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.commander{
+    float:right;
+    margin-top: 5px;
+    margin-right: 15px;
+}
+
+.prixtotal{
+    float:right;
+    margin : 10px;
+}
+
+
+.ajoutpanier{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
