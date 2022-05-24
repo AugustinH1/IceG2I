@@ -75,12 +75,13 @@
 
 .detailproduit
 {
-   
+    
     height: 250px;
 }
 
 .descriptionproduit
 {
+    border: solid 1px;
     margin-left: 250px;
     margin-right: 200px;
 
@@ -91,10 +92,10 @@
 {
     margin: 30px;
     float: right;
-    border: solid 1px;
-    color: blue;
-    
+
 }
+
+
 
 .avis
 {

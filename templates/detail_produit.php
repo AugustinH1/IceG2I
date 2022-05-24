@@ -35,7 +35,7 @@ include_once("libs/maLibForms.php");
           {
               mkForm();
                 mkInput("hidden","id_produit",$id_produit);
-                mkInput("submit","action","Ajouter au panier", array(), "class=\"ajoutpanier btn btn-default\"");
+                mkInput("submit","action","Ajouter au panier", array(), "class=\" btn btn-default\"");
               endForm();
           }
       echo "</div>";
