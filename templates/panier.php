@@ -66,16 +66,13 @@ if (!valider("connecte","SESSION")) {
 
 
 <?php
-////panier
     if($produits!=array())
     {
-        mkForm("controleur.php");
-        mkInput("submit","action","Commander", array(), "class=\"commander btn btn-default\"");
-        endForm();
+        echo "<a href=\"index.php?view=tunnel\" class=\"commander btn btn-default\"> Commander </a>";
         echo "<h4 class=\"prixtotal\"> Total : $total € </h4>";
     }
     else
-        echo "Votre panier est vide !";
+        echo "<p class=\"colorblue\">Votre panier est vide !</p>";
 
 }
 ?>

@@ -43,17 +43,13 @@ foreach($commandes as $commande)
          <p class=\"para\"> commande N°$id_commande </p>
          <p class=\"para\"> date : $date </p>";
     if($etat_livraison==0)
-        echo "<p class=\"para\" style='color:blue'> état de livraison : pas encore expédié </p>";
+        echo "<p class=\"para colorblue\"> état de livraison : pas encore expédié </p>";
     if($etat_livraison==1)
         echo "<p class=\"para\" style='color:orange'> état de livraison : en cours de livraison </p>";
     if($etat_livraison==2)
         echo "<p class=\"para\" style='color:green'> état de livraison : livré  </p>";
-    mkForm("controleur.php");
-    mkInput("hidden","id_commande",$id_commande);
-    mkInput("submit","action","Voir plus", array(), "class=\"boutonplus btn btn-default\"");
-    endForm();
 
-    echo "</div>";
+    echo "<a href=\"index.php?view=detail_commande&id_commande=$id_commande\" class=\"boutonplus btn btn-default\"> Voir plus </a> </div>";
 }
 
 }

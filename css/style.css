@@ -61,6 +61,7 @@
 }
 
 .image{
+
     margin-left: 10px;
     margin-right: 50px;
     float: left;
@@ -79,12 +80,16 @@
     height: 250px;
 }
 
+.innerproduit
+{
+    margin-left: 250px;
+    margin-right: 200px;
+}
+
 .descriptionproduit
 {
     border: solid 1px;
-    margin-left: 250px;
-    margin-right: 200px;
-
+    height: 75px;
 
 }
 
@@ -183,4 +188,6 @@
     position: absolute;
     right: 10px;
     bottom: 10px;
+    
 }
+

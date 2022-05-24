@@ -169,10 +169,16 @@ function identreprise($id)
 
 
 // Cette fonction liste tous les produits du magasin
-function ListerProduit()
+function ListerProduit($recherche = "")
 {
-	$sql = "SELECT id_produit, nom, description, url_photo, prix FROM Produit;";
+
+	$sql = "SELECT id_produit, nom, description, url_photo, prix 
+			FROM Produit
+			WHERE nom LIKE '%$recherche%'; ";
+
 	return parcoursRs(SQLSelect($sql));
+
+
 }
 
 ///fonctions relatives au panier d'un utilisateur
@@ -306,8 +312,14 @@ function ListeCommande($id_user)
 	return parcoursRs(SQLSelect($sql));
 }
 
-
-
+function getCommande($id_commande)
+{
+	$sql = "SELECT Commande.date, Commande.etat_livraison, Detail_commande.quantite, Produit.url_photo, Produit.prix, Produit.nom
+			FROM Detail_commande JOIN Produit ON Detail_commande.id_produit=Produit.id_produit 
+			JOIN Commande ON Commande.id_commande=Detail_commande.id_commande
+			WHERE Detail_commande.id_commande='$id_commande';";
+	return parcoursRs(SQLSelect($sql));
+}
 
 
 ?>

@@ -190,10 +190,7 @@ session_start();
 				}
 			break;
 
-			case 'Commander':
-				$tabQs["view"]="tunnel";
-			break;
-
+		
 			case 'Noter':
 				
 				if($_GET["note"]>=1 && $_GET["note"]<=5)
@@ -223,6 +220,11 @@ session_start();
 					AjouteDetailCommande($id_commande, $id_produit, $quantite, $idUser);
 				}
 				$tabQs["view"]="magasin";
+			break;
+
+			case 'rechercher':
+				$tabQs["view"]="magasin";
+
 			break;
 
 			

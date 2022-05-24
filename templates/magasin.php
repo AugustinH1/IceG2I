@@ -24,7 +24,15 @@ include_once "libs/maLibUtils.php";
 
 <?php
 
+if(valider("rechercher","GET"))
+	$produits=ListerProduit($_GET["rechercher"]);
+else
 $produits=ListerProduit();
+
+if($produits == array())
+	echo "Aucun produit trouvé";
+
+
 foreach($produits as $produit)
 {
 	
@@ -35,7 +43,7 @@ foreach($produits as $produit)
 	$id_produit=$produit["id_produit"];
 
 	echo "<div class='produit'>
-		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\"> <img class=\"image\" src=\"$photo\" alt=\"imageproduit\" height=\"100\" weight=\"100\"/> </a>
+		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\"> <img class=\"image\" src=\"$photo\" alt=\"image non disponible\" height=\"100\" weight=\"100\"/> </a>
 		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\" style='display:inline-block'> <h3> $nom </h3> </a>
 		 <h4 style='float:right'> $prix € </h4>
 		 <p> $description </p>";
@@ -51,5 +59,6 @@ foreach($produits as $produit)
 }
 
 ?>
+
 
 

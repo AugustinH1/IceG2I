@@ -19,33 +19,38 @@ include_once("libs/maLibForms.php");
 
     $url = $produit[0]["url_photo"];
     $nom=$produit[0]["nom"];
-	  $description=$produit[0]["description"];
+	$description=$produit[0]["description"];
 
 
     echo "<div class = \"detailproduit\">";
     
-      echo "<img class=\"image\" src=\"$url\" alt=\"imageproduit\" height=\"200\" weight=\"00\"/>";
+        echo "<img class=\"image\" src=\"$url\" alt=\"image non disponible\" height=\"200\" weight=\"00\"/>";
 
-      echo "<h3>$nom</h3>";
+        echo "<div class = \"produitprix\">";
+            echo "<h4>Prix :".$produit[0]["prix"]." €</h4>";
 
-      echo "<div class = \"produitprix\">";
-          echo "<h4>Prix :".$produit[0]["prix"]." €</h4>";
-
-          if (valider("connecte","SESSION"))
-          {
-              mkForm();
-                mkInput("hidden","id_produit",$id_produit);
-                mkInput("submit","action","Ajouter au panier", array(), "class=\" btn btn-default\"");
-              endForm();
-          }
-      echo "</div>";
+            if (valider("connecte","SESSION"))//afficher le panier ou non
+            {
+                mkForm();
+                    mkInput("hidden","id_produit",$id_produit);
+                    mkInput("submit","action","Ajouter au panier", array(), "class=\" btn btn-default\"");
+                endForm();
+            }
+        echo "</div>";
 
 
 
 
-      echo "<p class = \"descriptionproduit\"> $description </p>";
 
-      echo "<h4>Pointure : ".$produit[0]["pointure"]."</h4>";
+
+        echo "<div class = \"innerproduit\">";
+            echo "<h3>$nom</h3>";
+
+            echo "<p class = \"descriptionproduit\"> $description </p>";
+
+            echo "<h4>Pointure : ".$produit[0]["pointure"]."</h4>";
+        echo "</div>";
+
         
 
  
