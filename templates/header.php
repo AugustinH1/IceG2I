@@ -71,8 +71,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
 		if (valider("connecte", "SESSION")){
 			if (valider("entreprise", "SESSION")) {
-				echo mkHeadLink("Liste","liste_produit",$view);
-				echo mkHeadLink("Ajout","newitem",$view);
+				echo mkHeadLink("Produits entreprise","liste_produit",$view);
+				echo mkHeadLink("Ajout produit","newitem",$view);
 			}
 			echo mkHeadLink("Commandes","commande",$view);
 			echo mkHeadLink("Paramètres","settings",$view);

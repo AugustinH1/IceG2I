@@ -32,9 +32,11 @@ if (!valider("connecte","SESSION")) {
 <div class="panier">
 
     <?php
+        $existe=1;
         $id_User=valider("idUser","SESSION");
         $produits=ListerPanier($id_User);
         $total=0;
+
         foreach($produits as $produit)
         {
             $nom=$produit["nom"];
@@ -54,7 +56,7 @@ if (!valider("connecte","SESSION")) {
             echo "<p style='display:inline-block'> Quantité : $quantite &nbsp</p>";
             mkInput("submit","action","+","","class=\"btn btn-default\"");
             mkInput("submit","action","-","","class=\"btn btn-default\"");
-            mkInput("submit","action","Retirer du panier", array(), "class=\"retirerpanier btn btn-default\"");
+            mkInput("submit","action","Retirer du panier", array(), "class=\"retirer btn btn-default\"");
             endForm();
 
             echo "</div>";

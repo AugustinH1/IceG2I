@@ -90,18 +90,8 @@ function changerPasse($idUser, $passe)
   SQLUpdate($sql);
 }
 
-function deletecompte($idUser)
-{
-	$sql="DELETE FROM User
-	WHERE id_user = '$idUser'";
-	SQLDelete($sql);
-}
 
-
-
-
-
-//renvoie si le compte est entreprise ou  non
+//renvoie si le compte est entreprise ou non et renvoie l'id entreprise si oui
 function entreprise($idUser)
 {
 	$sql="SELECT entreprise
@@ -174,7 +164,7 @@ function ListerProduit($recherche = "")
 
 	$sql = "SELECT id_produit, nom, description, url_photo, prix 
 			FROM Produit
-			WHERE nom LIKE '%$recherche%'; ";
+			WHERE nom!='produit supprimé' AND nom LIKE '%$recherche%'; ";
 
 	return parcoursRs(SQLSelect($sql));
 
@@ -321,5 +311,17 @@ function getCommande($id_commande)
 	return parcoursRs(SQLSelect($sql));
 }
 
+function ListerProduitEntreprise($id_entreprise)
+{
+	$sql = "SELECT id_produit, nom, description, url_photo, prix FROM Produit 
+	WHERE id_entreprise='$id_entreprise' AND nom!='produit supprimé';";
+	return parcoursRs(SQLSelect($sql));
+}
+
+function SupprimeProduit($id_produit)
+{
+	$sql = "UPDATE Produit SET nom = 'produit supprimé' WHERE id_produit='$id_produit'";
+    SQLUpdate($sql);
+}
 
 ?>

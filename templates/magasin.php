@@ -9,16 +9,8 @@ include_once "libs/maLibUtils.php";
 
 ?>
 
-<style>
-	.ajoutpanier{
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-    }
-</style>
-
 <div class="page-header">
-	<h1 class="titre">magasin</h1>
+	<h1 class="titre">Magasin</h1>
 </div>
 
 

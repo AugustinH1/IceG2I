@@ -118,16 +118,6 @@ session_start();
 				changerPasse($_SESSION["idUser"], $_GET["passe"]);
 
 			break;
-
-			case 'Suprimer compte':
-
-				deletecompte($_SESSION["idUser"]);
-				$_SESSION = array();
-				$tabQs["view"]="magasin";
-
-
-			break;
-
 			
 			case 'Ajouter Produit':
 
@@ -139,15 +129,21 @@ session_start();
 				$idUser=$_SESSION["idUser"];
 				if($id_produit=valider("id_produit","GET"))
 				{
-					if(DejaDansPanier($idUser,$id_produit))
+					$produit=getProduit($id_produit);
+					if($produit["nom"]!="produit supprimé")
 					{
-						IncrementeQuantite($idUser,$id_produit);
+						if(DejaDansPanier($idUser,$id_produit))
+						{
+							IncrementeQuantite($idUser,$id_produit);
+						}
+						else
+						{
+							AjouteAuPanier($idUser,$id_produit);
+						}
+						$tabQs["view"]="panier";
 					}
 					else
-					{
-						AjouteAuPanier($idUser,$id_produit);
-					}
-					$tabQs["view"]="panier";
+						echo "ajout impossible : produit supprimé";
 				}
 				else
 				{
@@ -211,14 +207,25 @@ session_start();
 
 			case 'valider':
 				$idUser=valider("idUser","SESSION");
-				$id_commande=ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$idUser);
-        		$produits=ListerPanier($idUser);
+				$existe=1;
+				$produits=ListerPanier($idUser);
         		foreach($produits as $produit)
 				{
-					$id_produit=$produit["id_produit"];
-					$quantite=$produit["quantite"];
-					AjouteDetailCommande($id_commande, $id_produit, $quantite, $idUser);
+					if($produit["nom"]=="produit supprimé") //un produit a peut être été supprimé du magasin alors qu'un utilisateur s'apprétait à le commander
+						$existe=0;
 				}
+				if($existe==1)
+				{
+					$id_commande=ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$idUser);
+					foreach($produits as $produit)
+					{
+						$id_produit=$produit["id_produit"];
+						$quantite=$produit["quantite"];
+						AjouteDetailCommande($id_commande, $id_produit, $quantite, $idUser);
+					}
+				}
+				else
+					$tabQs["msg"]="Une erreur est survenue : un des produits sélectionné a été supprimé. La commande a été annulée.";
 				$tabQs["view"]="magasin";
 			break;
 
@@ -226,6 +233,11 @@ session_start();
 				$tabQs["view"]="magasin";
 
 			break;
+
+			case 'Supprimer':
+				if($id_produit=valider("id_produit","GET"))
+					SupprimeProduit($id_produit);
+				break;
 
 			
 		}
