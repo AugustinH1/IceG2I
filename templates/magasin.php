@@ -10,10 +10,6 @@ include_once "libs/maLibUtils.php";
 ?>
 
 
-
-
-  
-
 <div class="page-header">
 	<h1 class="titre">Magasin</h1>
 </div>
@@ -92,22 +88,6 @@ echo "</div>";
 ?>
 
 <!-- fin du filtre -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php

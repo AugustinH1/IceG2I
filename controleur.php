@@ -21,15 +21,6 @@ session_start();
 		// ATTENTION : le codage des caractères peut poser PB si on utilise des actions comportant des accents... 
 		// A EVITER si on ne maitrise pas ce type de problématiques
 
-		/* TODO: A REVOIR !!
-		// Dans tous les cas, il faut etre logue... 
-		// Sauf si on veut se connecter (action == Connexion)
-
-		if ($action != "Connexion") 
-			securiser("login");
-		*/
-
-		// Un paramètre action a été soumis, on fait le boulot...
 		switch($action)
 		{
 			
@@ -73,66 +64,89 @@ session_start();
 			break;
 
 			case 'signin' :
-				
-			
 				if($_GET["passe"]==$_GET["confirmpwd"])
 				{
+					$passe=SecuriseChamp($_GET["passe"], 30);
+					$username=SecuriseChamp($_GET["username"], 30);
+					$email=SecuriseChamp($_GET["email"], 50);
+
+					if($passe && $username && $email)
+						mkUser($email, $username, $passe, $connecte=0, $entreprise=0);
+					else
+						$tabQs["msg"]="Une des informations est trop longue";
 					$tabQs["view"]="login";
-					mkUser($_GET["email"], $_GET["username"], $_GET["passe"], $connecte=0, $entreprise=0);
 				}
 				else
 				{
 					$tabQs["view"]="signin";
 					$tabQs["msg"]="les mots de passe ne corespondent pas";
-					
 				}
-
-
 			break;
 
 			case 'compteentreprise' :
+				$nom=SecuriseChamp($_GET["nom"], 50);
+				$siege=SecuriseChamp($_GET["siege"], 50);
+				$tel=SecuriseChamp($_GET["tel"], 10, true); 	//le numero de telephone doit être composé d'exactement 10 chiffres
+				$siret=SecuriseChamp($_GET["Siret"], 14, true); //le siret doit être composé d'exactement 14 chiffres
 
-				setentreprise($_GET["nom"] ,$_GET["siege"] ,$_GET["tel"] ,$_GET["siret"] ,$_SESSION["idUser"]);
-				$_SESSION["entreprise"] = 1;
-				$_SESSION["id_entreprise"] = identreprise($_SESSION["idUser"]);
+				if($nom && $siege && $tel && $siret)
+				{
+					setentreprise($nom ,$siege ,$tel ,$siret ,$_SESSION["idUser"]);
+					$_SESSION["entreprise"] = 1;
+					$_SESSION["id_entreprise"] = identreprise($_SESSION["idUser"]);
+				}
+				else
+					$tabQs["msg"]="Une des informations est invalide";
 				$tabQs["view"]="magasin";
-
 			break;
 
 			case 'Changer pseudo':
-
-				changerPseudo($_SESSION["idUser"], $_GET["pseudo"]);
-				$_SESSION["pseudo"] = $_GET["pseudo"];
-
+				$pseudo=SecuriseChamp($_GET["pseudo"], 30);
+				if($pseudo)
+				{
+					changerPseudo($_SESSION["idUser"], $_GET["pseudo"]);
+					$_SESSION["pseudo"] = $_GET["pseudo"];
+				}
+				else
+					$tabQs["msg"]="Le nouveau pseudo n'est pas valide";
 			break;
 
 			case 'Changer email':
-
-				changerEmail($_SESSION["idUser"], $_GET["email"]);
-				$_SESSION["email"] = $_GET["email"];
-
+				$email=SecuriseChamp($_GET["email"], 50);
+				if($email)
+				{
+					changerEmail($_SESSION["idUser"], $email);
+					$_SESSION["email"] = $_GET["email"];
+				}
+				else
+					$tabQs["msg"]="Le nouvel email n'est pas valide";
 			break;
 
 			case 'Changer mot de passe':
-
-				changerPasse($_SESSION["idUser"], $_GET["passe"]);
-
+				$passe=SecuriseChamp($_GET["passe"], 30);
+				if($passe)
+					changerPasse($_SESSION["idUser"], $passe);
+				else
+					$tabQs["msg"]="Le nouveau mot de passe n'est pas valide";
 			break;
-
-			case 'Suprimer compte':
-
-				deletecompte($_SESSION["idUser"]);
-				$_SESSION = array();
-				$tabQs["view"]="magasin";
-
-
-			break;
-
 			
 			case 'Ajouter Produit':
+				$nom=SecuriseChamp($_GET["nom"], 30);
+				$description=SecuriseChamp($_GET["description"], 1000);
+				//ici SecurisationChamp permet surtout d'éviter les injections SQL et JS via la description du produit (l'entreprise pourra utiliser les apostrophes sans avoir d'erreur)
+				$photo=SecuriseChamp($_GET["photo"], 500);
+				$prix=SecuriseChamp($_GET["prix"], 3); 		   //Le prix ne doit pas dépasser 999€ (limite 3 caractères) sinon le patin est trop cher, il s'agit d'une arnaque
+				$niveau=SecuriseChamp($_GET["niveau"], 30);
+				$type=SecuriseChamp($_GET["type"], 30);
+				$pointure=SecuriseChamp($_GET["pointure"], 2); //La pointure ne doit pas dépasser 99 (limite 2 caractères) sinon il s'agit d'une arnaque
+				$marque=SecuriseChamp($_GET["marque"], 30);
+				$lame=SecuriseChamp($_GET["lame"], 50);
+				$poids=SecuriseChamp($_GET["poids"], 1); 	   //Le poids ne doit pas dépasser 9kg (limite 1 caractère) sinon le patin est trop lourd, il s'agit d'une arnaque
 
-				AjouterProduit($_GET["nom"],$_GET["description"],$_GET["photo"],$_GET["prix"],$_GET["niveau"],$_GET["type"],$_GET["pointure"],$_GET["marque"],$_GET["lame"],$_GET["poids"],$_SESSION["id_entreprise"]);
-
+				if($nom && $description && $photo && $prix && $niveau && $type && $pointure && $marque && $lame && $poids)
+					AjouterProduit($nom,$description,$photo,$prix,$niveau,$type,$pointure,$marque,$lame,$poids,$_SESSION["id_entreprise"]);
+				else
+				$tabQs["msg"]="Une des informations est trop longue";
 			break;
 
 			case 'Ajouter au panier':
@@ -203,27 +217,60 @@ session_start();
 			break;
 
 			case 'Envoyer':
-				if(!$_GET["commentaire"]=="")
-					addCommentaire($_SESSION["idUser"],$_GET["id_produit"],$_GET["commentaire"]);
+				$commentaire=SecuriseChamp($_GET["commentaire"], 1000); 
+				//ici SecurisationChamp permet surtout d'éviter les injections SQL et JS via le commentaire (l'utilisateur pourra utiliser les apostrophes sans avoir d'erreur)
+				
+				if(!($_GET["commentaire"]=="") && $commentaire)
+					addCommentaire($_SESSION["idUser"],$_GET["id_produit"],$commentaire);
 				$tabQs["view"]= "detail_produit";
 				$tabQs["id_produit"]= $_GET["id_produit"];
 			break;
 
 			case 'valider':
-				$idUser=valider("idUser","SESSION");
-				$id_commande=ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$idUser);
-        		$produits=ListerPanier($idUser);
-        		foreach($produits as $produit)
-				{
-					$id_produit=$produit["id_produit"];
-					$quantite=$produit["quantite"];
-					AjouteDetailCommande($id_commande, $id_produit, $quantite, $idUser);
-				}
-				$tabQs["view"]="magasin";
-			break;
-	
+				$nom=SecuriseChamp($_GET["nom"], 30);
+				$prenom=SecuriseChamp($_GET["prenom"], 30);
+				$adresse=SecuriseChamp($_GET["adresse"], 50);
+				$ville=SecuriseChamp($_GET["ville"], 30);
+				$codepostal=SecuriseChamp($_GET["codepostal"], 5, true); //Le code postal doit être composé d'exactement 5 chiffres
+				$tel=SecuriseChamp($_GET["tel"], 10, true); 			 //le numero de telephone doit être composé d'exactement 10 chiffres
+				$cb=SecuriseChamp($_GET["cb"], 16, true); 				 //le numero de cb doit être composé d'exactement 16 chiffres
+				$cvv=SecuriseChamp($_GET["cvv"], 3, true); 				 //le numero cvv doit être composé d'exactement 3 chiffres
 
-			
+				// En plus du fait que tous les champs doivent respecter la limite du nombre de caractères autorisée,
+				// il faut que la date d'expiration de la carte bancaire soit postérieure à la date actuelle sinon la commande est impossible
+				if($_GET["exp"]>date('Y-m-d') && $nom && $prenom && $adresse && $ville && $codepostal && $tel && $cb && $cvv)
+				{
+					$idUser=valider("idUser","SESSION");
+					$existe=1;
+					$produits=ListerPanier($idUser);
+
+					foreach($produits as $produit)
+					{
+						if($produit["description"]=='produit supprimé') //un produit a peut être été supprimé du magasin alors qu'un utilisateur s'apprétait à le commander
+							$existe=0;
+					}
+					if($existe==1)
+					{
+						$id_commande=ValiderCommande($_GET["nom"],$_GET["prenom"],$_GET["adresse"],$_GET["ville"],$_GET["codepostal"],$_GET["tel"],$_GET["cb"],$_GET["exp"], $_GET["cvv"],$idUser);
+						foreach($produits as $produit)
+						{
+							$id_produit=$produit["id_produit"];
+							$quantite=$produit["quantite"];
+							AjouteDetailCommande($id_commande, $id_produit, $quantite, $idUser);
+						}
+					}
+					else
+						$tabQs["msg"]="Une erreur est survenue : un des produits sélectionné a été supprimé. La commande a été annulée.";
+					$tabQs["view"]="magasin";
+				}
+				else
+					$tabQs["msg"]="Une des informations est invalide, veuillez recommencer";
+			break;
+
+			case 'Supprimer':
+				if($id_produit=valider("id_produit","GET"))
+					SupprimeProduit($id_produit);
+			break;
 		}
 
 	}

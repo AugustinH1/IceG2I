@@ -160,7 +160,7 @@
     bottom: 10px;
 }
 
-.retirerpanier{
+.retirer{
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -218,6 +218,7 @@ output
 {
     color: blueviolet;
     display:inline;
+    margin-right: 30px;
 }
 
 

@@ -66,4 +66,33 @@ function securiser($urlBad,$urlGood=false)
 	}
 }
 
+
+
+/**
+ * auteur : Lara
+ * Fonction qui vérifie qu'un champ de formulaire rempli par l'utilisateur est valide
+ * La fonction retourne le champ auquel on a appliqué les fonctions addslashes et 
+ * htmlspecialchars si la longueur du champ est conforme à celle passée en paramètre
+ * Si $egal=true, il faut que la longeur du champ soit exactement la même que celle passée en paramètre
+ * La fonction renvoie null sinon
+ */
+function SecuriseChamp($champ, $longueur, $egal=false)
+{
+	if($egal)
+	{
+		if(strlen($champ) == $longueur)
+			return addslashes(htmlspecialchars($champ));
+		else
+			return NULL;
+	}
+	else
+	{
+		if(strlen($champ) <= $longueur)
+			return addslashes(htmlspecialchars($champ));
+		else
+			return NULL;
+	}
+}
+
+
 ?>

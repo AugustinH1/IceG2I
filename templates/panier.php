@@ -54,7 +54,7 @@ if (!valider("connecte","SESSION")) {
             echo "<p style='display:inline-block'> Quantité : $quantite &nbsp</p>";
             mkInput("submit","action","+","","class=\"btn btn-default\"");
             mkInput("submit","action","-","","class=\"btn btn-default\"");
-            mkInput("submit","action","Retirer du panier", array(), "class=\"retirerpanier btn btn-default\"");
+            mkInput("submit","action","Retirer du panier", array(), "class=\"retirer btn btn-default\"");
             endForm();
 
             echo "</div>";
