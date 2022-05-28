@@ -160,7 +160,7 @@
     bottom: 10px;
 }
 
-.retirer{
+.retirerpanier{
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -190,4 +190,35 @@
     bottom: 10px;
     
 }
+
+.filtre
+{  
+  display: block; 
+}
+
+input[type="range"] {
+    width:130px;
+    display: inline;
+    border: solid 1px;
+}
+
+.formbtn
+{
+    display: inline;
+}
+
+output
+{
+    display: inline;
+   
+}
+
+
+.inline
+{
+    color: blueviolet;
+    display:inline;
+}
+
+
 

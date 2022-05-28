@@ -29,7 +29,7 @@ if ($checked = valider("remember", "COOKIE")) $checked = "checked";
     <label for="pwd">Mot de passe</label>
     <input type="password" class="form-control" id="pwd" name="passe" value="<?php echo $passe;?>">
   </div>
-  
+
   <button type="submit" name="action" value="Connexion" class="form-control btn btn-default">Connexion</button>
   <br>
   <br>

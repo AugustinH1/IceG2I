@@ -9,17 +9,119 @@ include_once "libs/maLibUtils.php";
 
 ?>
 
+
+
+
+  
+
 <div class="page-header">
 	<h1 class="titre">Magasin</h1>
 </div>
 
 
+
+<!-- debut du filtre -->
+  
+<div class="filtre">
+<?php
+mkForm("","","formbtn");
+
+if(valider("pointure","GET"))
+	$pointure = $_GET["pointure"];
+else
+	$pointure = deltapointure("MIN");
+
+if(valider("marque","GET"))
+	$marquevalue = $_GET["marque"];
+else
+	$marquevalue = "";
+
+if(valider("prixmin","GET"))
+	$prixmin = $_GET["prixmin"];
+else
+	$prixmin = "";
+
+if(valider("prixmax","GET"))
+	$prixmax = $_GET["prixmax"];
+else
+	$prixmax = "";
+
+
+?>
+
+<h3 class="inline">Filtre</h3>
+pointure :
+<input class="slider" type="range"
+	name="pointure"
+	min="<?=deltapointure("MIN");?>" 
+	max="<?=deltapointure("MAX");?>" 
+	value="<?=$pointure?>"
+	oninput="this.nextElementSibling.value = this.value"
+	size="2"
+>
+<output><?=$pointure?></output>
+
+
+
+
+
+<?php
+echo "&nbsp&nbsp&nbsp&nbsp";
+echo "Prix de : ";
+mkinput("text","prixmin","$prixmin","","size= \"3\"");
+echo "à ";
+mkinput("text","prixmax","$prixmax","","size= \"3\"");
+echo "€&nbsp&nbsp&nbsp&nbsp";
+
+$marque = getmarque();
+mkSelect("marque", $marque, "marque","marque");
+echo "&nbsp&nbsp&nbsp&nbsp";
+
+
+mkinput("hidden","filtreactiver","1");
+mkinput("submit","action","Filtrer","","class=\" btn btn-default\"");
+
+endform();
+
+mkForm("","get","formbtn");
+mkinput("submit","action","Reset","","class=\" btn btn-default\"");
+endform();
+
+echo "</div>";
+
+?>
+
+<!-- fin du filtre -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php
 
-if(valider("rechercher","GET"))
-	$produits=ListerProduit($_GET["rechercher"]);
+if(!valider("rechercher","GET"))
+	$produits=ListerProduit();
 else
-$produits=ListerProduit();
+	$produits=ListerProduit($_GET["rechercher"]);
+
+
+if(valider("filtreactiver","GET"))
+	$produits = Filter($_GET["pointure"],$_GET["marque"],$_GET["prixmin"],$_GET["prixmax"]);
+
+
 
 if($produits == array())
 	echo "Aucun produit trouvé";
@@ -49,7 +151,6 @@ foreach($produits as $produit)
 	}
 	echo "</div>";
 }
-
 ?>
 
 

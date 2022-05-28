@@ -71,3 +71,11 @@ include_once("libs/maLibForms.php");
 
     </div>
 </div>
+
+<div class="stteingdelete">
+    <?php  
+        mkform();
+        mkinput("submit","action","Suprimer compte"); 
+        endform();
+    ?>
+</div>
