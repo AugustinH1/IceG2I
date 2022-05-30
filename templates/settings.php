@@ -1,3 +1,10 @@
+<!--
+    auteur:AUGUSTIN
+    Template settings:
+	Possibilité de changer ses informations de compte et de visualiser celles actuelles (email, pseudo...)
+
+-->
+
 <?php
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index

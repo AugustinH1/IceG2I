@@ -1,6 +1,14 @@
+<!--
+    auteur:LARA
+    Template tunnel:
+	Permet de renseigner de valider une commande en rentrant les informations de livraison et de paiement via un formulaire
+    (La commande n'est passée que si les informations envoyées au contrôleur sont valides)
+
+-->
+
 <?php
 
-//Template du tunnel de commande : permet de renseigner les informations de livraison et de paiement
+
 include_once "libs/modele.php"; 
 include_once "libs/maLibForms.php"; 
 include_once "libs/maLibUtils.php";
@@ -45,13 +53,13 @@ if (!valider("connecte","SESSION")) {
         <input type="text" class="form-control" name="ville" placeholder="ville">
     </div>
     <div class="form-group">
-        <label for="tel">Téléphone : </label>
+        <label for="tel">Téléphone (sans espace) : </label>
         <input type="text" class="form-control" id="tel" name="tel" placeholder="telephone">
     </div>
 
     <h3>paiement</h3></br>
     <div class="form-group">
-        <label for="cb">Numéro CB : </label>
+        <label for="cb">Numéro CB (sans espace) : </label>
         <input type="text" class="form-control" id="cb" name="cb" placeholder="numero">
     </div>
     <div class="form-group">

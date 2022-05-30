@@ -1,3 +1,11 @@
+<!--
+    auteur:LARA
+    Template detail comande:
+    cette page permet de voir le détail d'une commande passée comme les produits achetés 
+
+-->
+
+
 <?php
 
 //Template du détail d'une commande : vue de ce qui a été commandé lors d'une commande en particulier

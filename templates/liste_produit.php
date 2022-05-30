@@ -1,6 +1,14 @@
+<!--
+    auteur:LARA
+    Template liste_produit:
+	Vue des différents produits proposés par l'entreprise de l'utilisateur connecté
+    Possibilité de les supprimer du magasin depuis cette template
+
+-->
+
+
 <?php
 
-//Template des produits entreprise : vue des différents produits proposés par l'entreprise de l'utilisateur connecté
 
 include_once "libs/modele.php"; 
 include_once "libs/maLibForms.php"; 
@@ -50,7 +58,7 @@ foreach($produits as $produit)
 		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\"> <img class=\"image\" src=\"$photo\" alt=\"image non disponible\" height=\"100\" weight=\"100\"/> </a>
 		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\" style='display:inline-block'> <h3> $nom </h3> </a>
 		 <h4 style='float:right'> $prix € </h4>
-		 <p> $description </p>";
+		 <div class='description'><p> $description </p></div>";
 
 	if (valider("connecte","SESSION"))
 	{

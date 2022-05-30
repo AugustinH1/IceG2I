@@ -1,3 +1,11 @@
+<!--
+    auteur:AUGUSTIN
+    Template newitem:
+	Permet à une entreprise de rajouter un produit dans le magasin via un formulaire
+
+-->
+
+
 <?php
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index
@@ -40,7 +48,7 @@ mkform();
 
 
 
-            echo "<br><br>Description du produit : <br>";
+            echo "<br><br>Description du produit (caractères max: 1000) : <br>";
             echo "<textarea name=\"description\" rows=\"12\" cols=\"35\"></textarea> <br><br>";
             
 
@@ -52,7 +60,7 @@ mkform();
 
         echo "<div class=\"addproduitcontent\" id=\"information\">";
 
-            echo "<br><br>Prix : ";
+            echo "<br><br>Prix (en €) : ";
             mkinput("text","prix","");
 
             echo "<br><br>Niveau : ";
@@ -61,7 +69,7 @@ mkform();
             echo "<br><br>Type : ";
             mkinput("text","type","","","placeholder=\"artistique, hokey...\"");
 
-            echo "<br><br>Pointure : ";
+            echo "<br><br>Pointure (EU) : ";
             mkinput("text","pointure","");
 
             echo "<br><br>Marque : ";
@@ -70,7 +78,7 @@ mkform();
             echo "<br><br>Type de lame : ";
             mkinput("text","lame","","","placeholder=\"vitesse,saut...\"");
 
-            echo "<br><br>Poids : ";
+            echo "<br><br>Poids (en g) : ";
             mkinput("text","poids","");
 
         echo "</div>";

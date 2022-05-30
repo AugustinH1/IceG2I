@@ -131,17 +131,17 @@ session_start();
 			break;
 			
 			case 'Ajouter Produit':
-				$nom=SecuriseChamp($_GET["nom"], 30);
+				$nom=SecuriseChamp($_GET["nom"], 100);
 				$description=SecuriseChamp($_GET["description"], 1000);
 				//ici SecurisationChamp permet surtout d'éviter les injections SQL et JS via la description du produit (l'entreprise pourra utiliser les apostrophes sans avoir d'erreur)
 				$photo=SecuriseChamp($_GET["photo"], 500);
-				$prix=SecuriseChamp($_GET["prix"], 3); 		   //Le prix ne doit pas dépasser 999€ (limite 3 caractères) sinon le patin est trop cher, il s'agit d'une arnaque
+				$prix=SecuriseChamp($_GET["prix"],10); 		   //Le prix ne doit pas dépasser 10 caractères sinon le patin est trop cher, il s'agit d'une arnaque
 				$niveau=SecuriseChamp($_GET["niveau"], 30);
 				$type=SecuriseChamp($_GET["type"], 30);
-				$pointure=SecuriseChamp($_GET["pointure"], 2); //La pointure ne doit pas dépasser 99 (limite 2 caractères) sinon il s'agit d'une arnaque
+				$pointure=(int)SecuriseChamp($_GET["pointure"], 2); //La pointure ne doit pas dépasser 99 (limite 2 caractères) sinon il s'agit d'une arnaque
 				$marque=SecuriseChamp($_GET["marque"], 30);
 				$lame=SecuriseChamp($_GET["lame"], 50);
-				$poids=SecuriseChamp($_GET["poids"], 1); 	   //Le poids ne doit pas dépasser 9kg (limite 1 caractère) sinon le patin est trop lourd, il s'agit d'une arnaque
+				$poids=(int)SecuriseChamp($_GET["poids"], 5); 	   //Le poids ne doit pas dépasser 99999g (limite 5 caractère) sinon le patin est trop lourd, il s'agit d'une arnaque
 
 				if($nom && $description && $photo && $prix && $niveau && $type && $pointure && $marque && $lame && $poids)
 					AjouterProduit($nom,$description,$photo,$prix,$niveau,$type,$pointure,$marque,$lame,$poids,$_SESSION["id_entreprise"]);
@@ -231,10 +231,10 @@ session_start();
 				$prenom=SecuriseChamp($_GET["prenom"], 30);
 				$adresse=SecuriseChamp($_GET["adresse"], 50);
 				$ville=SecuriseChamp($_GET["ville"], 30);
-				$codepostal=SecuriseChamp($_GET["codepostal"], 5, true); //Le code postal doit être composé d'exactement 5 chiffres
+				$codepostal=(int)SecuriseChamp($_GET["codepostal"], 5, true); //Le code postal doit être composé d'exactement 5 chiffres
 				$tel=SecuriseChamp($_GET["tel"], 10, true); 			 //le numero de telephone doit être composé d'exactement 10 chiffres
 				$cb=SecuriseChamp($_GET["cb"], 16, true); 				 //le numero de cb doit être composé d'exactement 16 chiffres
-				$cvv=SecuriseChamp($_GET["cvv"], 3, true); 				 //le numero cvv doit être composé d'exactement 3 chiffres
+				$cvv=(int)SecuriseChamp($_GET["cvv"], 3, true); 		//le numero cvv doit être composé d'exactement 3 chiffres
 
 				// En plus du fait que tous les champs doivent respecter la limite du nombre de caractères autorisée,
 				// il faut que la date d'expiration de la carte bancaire soit postérieure à la date actuelle sinon la commande est impossible

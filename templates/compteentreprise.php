@@ -1,3 +1,10 @@
+<!--
+    auteur:Augustin
+    Template compte entreprise:
+    cette page permet de demandé les informations nécessaire a la création d'un compte entreprise
+
+-->
+
 <?php
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index
@@ -38,14 +45,14 @@ include_once("libs/maLibForms.php");
 
 
   <div class="form-group">
-    <label for="tel">Tel entreprise</label>
+    <label for="tel">Téléphone entreprise (sans espace)</label>
     <input type="text" class="form-control" id="tel" name="tel" >
   </div>
 
   
 
   <div class="form-group">
-    <label for="pwd">Siret</label>
+    <label for="pwd">Siret (sans espace)</label>
     <input type="text" class="form-control" id="Siret" name="Siret">
   </div>
 

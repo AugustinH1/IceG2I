@@ -268,7 +268,7 @@ function addnote($id_user,$id_produit,$note)
 	// Augustin
 	//Cette fonction permet d’ajouter une note à un produit.
 
-	$sql="DELETE FROM Avis WHERE id_user = '$id_user' AND id_produit='$id_produit'";
+	$sql="DELETE FROM Avis WHERE id_user = '$id_user' AND id_produit='$id_produit' AND avis IS NULL";
 	SQLDelete($sql);
 
 	$sql = "INSERT INTO Avis(id_user, id_produit,avis, note)
@@ -296,7 +296,8 @@ function listercommentaire($id_produit)
 	$sql="SELECT User.username, avis
 			FROM Avis join User
 				ON Avis.id_user=User.id_user
-			Where id_produit = '$id_produit';";
+			Where id_produit = '$id_produit'
+				AND avis IS NOT NULL;";
 
 	return parcoursRs(SQLSelect($sql));	
 }
@@ -333,7 +334,7 @@ function ListeCommande($id_user)
 	// Lara
 	//Cette fonction récupère toutes les commandes de l’utilisateur passé en paramètre et les renvoie sous forme d’un tableau associatif.
 	
-	$sql = "SELECT id_commande, date, etat_livraison FROM Commande WHERE id_user='$id_user';";
+	$sql = "SELECT id_commande, date, etat_livraison FROM Commande WHERE id_user='$id_user' ORDER BY id_commande DESC;";
 	return parcoursRs(SQLSelect($sql));
 }
 
@@ -401,7 +402,8 @@ function ListerProduit($recherche = "")
 	
 	$sql = "SELECT *
 			FROM Produit
-			WHERE description!='produit supprimé' AND nom LIKE '%$recherche%';";
+			WHERE description!='produit supprimé' AND nom LIKE '%$recherche%'
+			ORDER BY nom;";
 
 	return parcoursRs(SQLSelect($sql));
 }

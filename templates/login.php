@@ -1,3 +1,11 @@
+<!--
+    auteur:AUGUSTIN
+    Template login:
+	  Permet de se connecter au site via un formulaire
+
+-->
+
+
 <?php
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index

@@ -1,6 +1,15 @@
+<!--
+    auteur:LARA
+    Template des commandes:
+    vue des différentes commandes passées par l'utilisateur
+    on peut prévisualiser le n° de commande, la date, l'état de livraison
+
+-->
+
+
 <?php
 
-//Template des commandes : vue des différentes commandes passées par l'utilisateur
+
 
 include_once "libs/modele.php"; 
 include_once "libs/maLibForms.php"; 

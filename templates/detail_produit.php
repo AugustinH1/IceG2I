@@ -1,3 +1,17 @@
+<!--
+    auteur:AUGUSTIN
+    Template detail produit:
+    cette page permet d'afficher le détail des produits
+    on peut voir leurs images, les prix, les pointures etc
+
+    Sur cette page nous pouvons noter le produit avec un systeme de note sur 5
+      (un utilisateur ne peut mettre qu'une note par produit)
+    Des commentaires sont déposables
+
+-->
+
+
+
 <?php
 
 include_once("libs/modele.php");
@@ -24,7 +38,7 @@ include_once("libs/maLibForms.php");
 
     echo "<div class = \"detailproduit\">";
     
-        echo "<img class=\"image\" src=\"$url\" alt=\"image non disponible\" height=\"200\" weight=\"00\"/>";
+        echo "<img class=\"imagedetailproduit\" src=\"$url\" alt=\"image non disponible\" height=\"200\" weight=\"200\"/>";
 
         echo "<div class = \"produitprix\">";
             echo "<h4>Prix :".$produit[0]["prix"]." €</h4>";
@@ -70,7 +84,7 @@ include_once("libs/maLibForms.php");
     <td><?=$produit[0]["marque"]?></td>
   </tr>
   <tr>
-    <td>Pointure</td>
+    <td>Pointure (EU)</td>
     <td><?=$produit[0]["pointure"]?></td>
   </tr>
   <tr>
@@ -90,7 +104,7 @@ include_once("libs/maLibForms.php");
     <td><?=$produit[0]["niveau"]?></td>
   </tr>
   <tr>
-    <td>Poids</td>
+    <td>Poids (en g)</td>
     <td><?=$produit[0]["poids"]?></td>
   </tr>
 
@@ -155,12 +169,15 @@ echo  "<div class = \" place\">";
         mkinput("submit","action","Noter","","class=\"btn btn-default\"");
         endForm();
   }
+  
 echo  "</div>";
 
 
 echo  "</div>";
 
 echo  "<br>";
+
+
 
 
     

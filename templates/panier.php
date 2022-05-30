@@ -1,6 +1,13 @@
-<?php
+<!--
+    auteur:LARA
+    Template panier:
+	Vue des différents produits dans le panier de l'utilisateur connecté 
+    Possibilité de modifier la quantité des produits à commander et de passer commande
 
-//Template du panier : vue des différents produits dans le panier de l'utilisateur connecté
+-->
+
+
+<?php
 
 include_once "libs/modele.php"; 
 include_once "libs/maLibForms.php"; 

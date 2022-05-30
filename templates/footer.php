@@ -1,3 +1,15 @@
+<!--
+    auteur:AUGUSTIN
+    Template footer:
+    Le footer permet de se déconnecter si nous sommes connectés
+	Faire une demande de création de compte entreprise si nous ne le somme pas encore
+
+	Et un petit onglet contact si nous souhaitons mettre quelques informations à propos de nous
+
+-->
+
+
+
 <?php
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index
@@ -19,6 +31,13 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		float: right;
 	
 	}
+	.footer
+	{
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		left: 0;
+	}
 
 
 </style>
@@ -31,7 +50,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 <!-- fin du wrap -->
 </div>
 
-<div id="footer">
+<div id="footer" class="footer">
   <div class="container">
    	 <p class="text-muted credit">
 

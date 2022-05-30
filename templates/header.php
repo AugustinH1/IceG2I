@@ -1,3 +1,13 @@
+<!--
+    auteur:AUGUSTIN/LARA
+    Template header:
+	Permet d'avoir les raccourcis d'accés aux différentes vues + barre de recherche
+    Distinction des différents raccourcis en fonction du statut
+
+-->
+
+
+
 <?php
 
 include_once "libs/modele.php"; 
@@ -21,7 +31,8 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 <!-- **** H E A D **** -->
 <head>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>TinyMVC ...</title>
+	<title>IceG2I</title>
+	<link rel="icon" href="ressources/patins.png">
 	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
 
 	<!-- Liaisons aux fichiers css de Bootstrap -->
@@ -83,11 +94,10 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 		<!-- affichage de la barre de recherche -->
 		<li>
 			<form class="rechercher">
-				<input class="rechercher form-control" type="text" name="rechercher" placeholder="rechercher">
-				<!-- <input type="image" src="ressources/loupe.png" height="20" name="action" value="rechercher" > -->
+				<input class="rechercher form-control" type="text" name="rechercher" placeholder="rechercher"> 
 				<input class="rechercher form-control" type="submit" name="action" value="rechercher">
 			</form>
-		</li>
+		</li> 
 		
 
 

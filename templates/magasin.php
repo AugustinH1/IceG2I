@@ -1,3 +1,12 @@
+<!--
+    auteur:LARA/AUGUSTIN
+    Template magasin (vue par défaut) :
+	Vue des différents produits proposés sur le site + possibilité d'accéder à leurs détails et de les ajouter au panier
+    
+	+ Filtre permettant d'affiner la liste des produits affichés
+
+-->
+
 <?php
 
 //Template du magasin : vue des différents produits proposés
@@ -102,7 +111,6 @@ if(valider("filtreactiver","GET"))
 	$produits = Filter($_GET["pointure"],$_GET["marque"],$_GET["prixmin"],$_GET["prixmax"]);
 
 
-
 if($produits == array())
 	echo "Aucun produit trouvé";
 
@@ -115,12 +123,14 @@ foreach($produits as $produit)
 	$photo=$produit["url_photo"];
 	$prix=$produit["prix"];
 	$id_produit=$produit["id_produit"];
+	$pointure=$produit["pointure"];
 
 	echo "<div class='produit'>
 		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\"> <img class=\"image\" src=\"$photo\" alt=\"image non disponible\" height=\"100\" weight=\"100\"/> </a>
-		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\" style='display:inline-block'> <h3> $nom </h3> </a>
+		 <a href=\"index.php?view=detail_produit&id_produit=$id_produit\" style='margin-left: 40px; display: inline-block'> <h3> $nom </h3> </a>
+		 <h4 style='display:inline-block'> - $pointure </h4>
 		 <h4 style='float:right'> $prix € </h4>
-		 <p> $description </p>";
+		 <div class='description'><p> $description </p></div>";
 
 	if (valider("connecte","SESSION"))
 	{
@@ -132,6 +142,5 @@ foreach($produits as $produit)
 	echo "</div>";
 }
 ?>
-
 
 

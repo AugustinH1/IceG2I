@@ -1,3 +1,11 @@
+<!--
+    auteur:AUGUSTIN
+    Template signin:
+	  Template qui permet de créer un compte via un formulaire
+
+-->
+
+
 <?php
 
 // Si la page est appelée directement par son adresse, on redirige en passant pas la page index
